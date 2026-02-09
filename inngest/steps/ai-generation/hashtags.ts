@@ -2,8 +2,8 @@ import type { step as InngestStep } from "inngest";
 import type OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { openai } from "../../lib/openai-client";
-import { type Hashtags, hashtagsSchema } from "../../schemas/ai-outputs";
-import type { TranscriptWithExtras } from "../../types/assemblyai";
+import { type Hashtags, hashtagsSchema } from "@/schemas/ai-outputs";
+import type { TranscriptWithExtras } from "@/types/assemblyai";
 
 const HASHTAGS_SYSTEM_PROMPT =
   "You are a social media growth expert who understands platform algorithms and trending hashtag strategies. You create hashtag sets that maximize reach and engagement.";
