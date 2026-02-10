@@ -30,6 +30,7 @@ export async function transcribeWithAssemblyAI(
       speaker_labels: true, // Always enable speaker diarization (UI-gated for ULTRA)
       auto_chapters: true, // Detect topic changes automatically
       format_text: true, // Add punctuation and capitalization
+      speech_models: ["universal-3-pro","universal-2"]
     });
 
     if (transcriptResponse.status === "error") {
@@ -119,6 +120,9 @@ export async function transcribeWithAssemblyAI(
       projectId,
       message: error instanceof Error ? error.message : "Transcription failed",
       step: "transcription",
+      details: { 
+        stack: error instanceof Error ? error.stack : String(error) 
+      },
     });
 
     throw error;

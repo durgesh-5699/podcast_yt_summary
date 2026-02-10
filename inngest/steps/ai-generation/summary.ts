@@ -56,7 +56,7 @@ export async function generateSummary(
   console.log("Generating podcast summary with GPT-4");
 
   try {
-=    const createCompletion = openai.chat.completions.create.bind(
+    const createCompletion = openai.chat.completions.create.bind(
       openai.chat.completions
     );
 
@@ -64,7 +64,7 @@ export async function generateSummary(
       "generate-summary-with-gpt",
       createCompletion,
       {
-        model: "gpt-5-mini", 
+        model: "gpt-4o-mini", 
         messages: [
           { role: "system", content: SUMMARY_SYSTEM_PROMPT },
           { role: "user", content: buildSummaryPrompt(transcript) },
