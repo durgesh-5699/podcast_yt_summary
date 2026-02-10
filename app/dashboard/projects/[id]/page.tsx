@@ -56,10 +56,8 @@ export default function ProjectDetailPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Tab state for mobile dropdown
   const [activeTab, setActiveTab] = useState("summary");
 
-  // Get status from Convex jobStatus (initialized on project creation)
   const transcriptionStatus: PhaseStatus =
     project?.jobStatus?.transcription || "pending";
   const generationStatus: PhaseStatus =
