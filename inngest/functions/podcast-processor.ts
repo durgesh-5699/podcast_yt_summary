@@ -147,7 +147,9 @@ export const podcastProcessor = inngest.createFunction(
           message:
             error instanceof Error ? error.message : "Unknown error occurred",
           step: "workflow",
-          details: error instanceof Error ? error.stack : String(error),
+          details: {
+            stack : error instanceof Error ? error.stack : String(error),
+          },
         });
       } catch (cleanupError) {
         console.error("Failed to update project status:", cleanupError);
