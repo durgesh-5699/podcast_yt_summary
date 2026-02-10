@@ -2,8 +2,8 @@ import type { step as InngestStep } from "inngest";
 import type OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { openai } from "../../lib/openai-client";
-import { type Summary, summarySchema } from "../../schemas/ai-outputs";
-import type { TranscriptWithExtras } from "../../types/assemblyai";
+import { type Summary, summarySchema } from "@/schemas/ai-outputs";
+import type { TranscriptWithExtras } from "@/types/assemblyai";
 
 const SUMMARY_SYSTEM_PROMPT =
   "You are an expert podcast content analyst and marketing strategist. Your summaries are engaging, insightful, and highlight the most valuable takeaways for listeners.";
@@ -11,8 +11,8 @@ const SUMMARY_SYSTEM_PROMPT =
 function buildSummaryPrompt(transcript: TranscriptWithExtras): string {
   return `Analyze this podcast transcript in detail and create a comprehensive summary package.
 
-TRANSCRIPT (first 3000 chars):
-${transcript.text.substring(0, 3000)}...
+TRANSCRIPT (first 5000 chars):
+${transcript.text.substring(0, 5000)}...
 
 ${
   transcript.chapters.length > 0

@@ -2,7 +2,7 @@ import type { step as InngestStep } from "inngest";
 import type OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { openai } from "../../lib/openai-client";
-import { type Titles, titlesSchema } from "../../schemas/ai-outputs";
+import { type Titles, titlesSchema } from "@/schemas/ai-outputs";
 import type { TranscriptWithExtras } from "@/types/assemblyai";
 
 const TITLES_SYSTEM_PROMPT =

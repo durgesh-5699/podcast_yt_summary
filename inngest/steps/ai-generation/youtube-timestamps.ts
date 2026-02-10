@@ -2,7 +2,7 @@ import type { step as InngestStep } from "inngest";
 import type OpenAI from "openai";
 import { formatTimestamp } from "@/lib/format";
 import { openai } from "../../lib/openai-client";
-import type { TranscriptWithExtras } from "../../types/assemblyai";
+import type { TranscriptWithExtras } from "@/types/assemblyai";
 
 type YouTubeTimestamp = {
   timestamp: string; 
