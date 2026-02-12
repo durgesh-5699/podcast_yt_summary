@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { MS_PER_DAY, MS_PER_HOUR, MS_PER_MINUTE } from "./constants";
 
 export function formatFileSize(size: number): string {
-  return bytes(size, { unitSeparator: " " });
+  return bytes(size, { unitSeparator: " " })??"0 B";
 }
 
 export function formatDuration(seconds: number): string {

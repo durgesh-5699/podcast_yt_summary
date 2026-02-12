@@ -64,7 +64,7 @@ export async function generateSummary(
       "generate-summary-with-gpt",
       createCompletion,
       {
-        model: "gpt-4o-mini", 
+        model: "gpt-5-mini", 
         messages: [
           { role: "system", content: SUMMARY_SYSTEM_PROMPT },
           { role: "user", content: buildSummaryPrompt(transcript) },

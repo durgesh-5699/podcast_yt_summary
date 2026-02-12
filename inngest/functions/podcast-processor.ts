@@ -17,11 +17,10 @@ export const podcastProcessor = inngest.createFunction(
     optimizeParallelism: true,
     retries: 3,
   },
-  // Event trigger: sent by server action after upload
   { event: "podcast/uploaded" },
   async ({ event, step }) => {
     const { projectId, fileUrl, plan: userPlan } = event.data;
-    const plan = (userPlan as PlanName) || "free"; // Default to free if not provided
+    const plan = (userPlan as PlanName) || "free"; 
 
     console.log(`Processing project ${projectId} for ${plan} plan`);
 
