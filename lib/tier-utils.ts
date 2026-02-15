@@ -24,7 +24,6 @@ export async function checkUploadLimits(
   fileSize: number,
   duration?: number
 ): Promise<UploadValidationResult> {
-  // Get user's plan using Clerk's has() method
   const { has } = auth;
   let plan: PlanName = "free";
   if (has?.({ plan: "ultra" })) {
@@ -35,7 +34,6 @@ export async function checkUploadLimits(
   
   const limits = PLAN_LIMITS[plan];
 
-  // Check file size limit
   if (fileSize > limits.maxFileSize) {
     return {
       allowed: false,
@@ -44,7 +42,6 @@ export async function checkUploadLimits(
     };
   }
 
-  // Check duration limit (if duration provided and plan has limit)
   if (duration && limits.maxDuration && duration > limits.maxDuration) {
     const durationMinutes = Math.floor(duration / 60);
     const limitMinutes = Math.floor(limits.maxDuration / 60);
@@ -75,7 +72,6 @@ export async function checkUploadLimits(
     }
   }
 
-  // All checks passed
   return { allowed: true };
 }
 
@@ -101,3 +97,5 @@ export function getMinimumPlanForFeature(feature: FeatureName): PlanName {
   if (PLAN_FEATURES.pro.includes(feature)) return "pro";
   return "ultra";
 }
+
+export type { FeatureName };
