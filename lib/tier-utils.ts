@@ -1,8 +1,7 @@
-import type { Auth } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { convex } from "@/lib/convex-client";
 import { api } from "@/convex/_generated/api";
 import {
-  FEATURES,
   PLAN_FEATURES,
   PLAN_LIMITS,
   type FeatureName,
@@ -17,14 +16,14 @@ export interface UploadValidationResult {
   currentCount?: number;
   limit?: number;
 }
-
+type AuthObject = Awaited<ReturnType<typeof auth>>;
 export async function checkUploadLimits(
-  auth: Auth,
+  authObj: AuthObject,
   userId: string,
   fileSize: number,
   duration?: number
 ): Promise<UploadValidationResult> {
-  const { has } = auth;
+  const { has } = authObj;
   let plan: PlanName = "free";
   if (has?.({ plan: "ultra" })) {
     plan = "ultra";
@@ -77,10 +76,10 @@ export async function checkUploadLimits(
 
 
 export function checkFeatureAccess(
-  auth: Auth,
+  authObj: AuthObject,
   feature: FeatureName
 ): boolean {
-  const { has } = auth;
+  const { has } = authObj;
   return has ? has({ feature }) : false;
 }
 
