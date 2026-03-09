@@ -22,17 +22,17 @@ export function CompactProgress({
 }: CompactProgressProps) {
   const [progress, setProgress] = useState(0);
 
-  const isTranscribing = jobStatus.transcription === "running";
+  const isTranscribing = jobStatus?.transcription === "running";
 
-  // Count completed content generation steps (all 6 outputs)
   const contentSteps = [
-    jobStatus.keyMoments,
-    jobStatus.summary,
-    jobStatus.social,
-    jobStatus.titles,
-    jobStatus.hashtags,
-    jobStatus.youtubeTimestamps,
+    jobStatus?.keyMoments,
+    jobStatus?.summary,
+    jobStatus?.social,
+    jobStatus?.titles,
+    jobStatus?.hashtags,
+    jobStatus?.youtubeTimestamps,
   ];
+  
   const completedSteps = contentSteps.filter((s) => s === "completed").length;
   const totalSteps = contentSteps.length;
 
@@ -43,7 +43,6 @@ export function CompactProgress({
       return;
     }
 
-    // Tutorial: Calculate progress based on elapsed time vs estimated completion time
     const updateProgress = () => {
       const estimate = estimateAssemblyAITime(fileDuration);
       const elapsed = Math.floor((Date.now() - createdAt) / 1000);
@@ -55,6 +54,11 @@ export function CompactProgress({
     const interval = setInterval(updateProgress, PROGRESS_UPDATE_INTERVAL_MS);
     return () => clearInterval(interval);
   }, [isTranscribing, createdAt, fileDuration, completedSteps, totalSteps]);
+
+  // 4. NOW we can safely do our early return!
+  if (!jobStatus) {
+    return null; 
+  }
 
   const statusText = isTranscribing
     ? "🎙️ Transcribing..."
