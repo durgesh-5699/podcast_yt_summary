@@ -6,8 +6,8 @@ import { type Titles, titlesSchema } from "@/schemas/ai-outputs";
 import type { TranscriptWithExtras } from "@/types/assemblyai";
 
 const TITLES_SYSTEM_PROMPT =
-  "You are an expert in SEO, content marketing, and viral content creation. You understand what makes titles clickable while maintaining credibility and search rankings.";
-
+  "You are an expert in SEO, content marketing, and viral content creation. You understand what makes titles clickable while maintaining credibility and search rankings. You MUST respond with a valid JSON object containing exactly these keys: 'youtubeShort' (array of strings), 'youtubeLong' (array of strings), 'podcastTitles' (array of strings), and 'seoKeywords' (array of strings).";
+  
 
 function buildTitlesPrompt(transcript: TranscriptWithExtras): string {
   return `Create optimized titles for this podcast episode.

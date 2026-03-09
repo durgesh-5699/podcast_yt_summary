@@ -6,8 +6,8 @@ import { type Hashtags, hashtagsSchema } from "@/schemas/ai-outputs";
 import type { TranscriptWithExtras } from "@/types/assemblyai";
 
 const HASHTAGS_SYSTEM_PROMPT =
-  "You are a social media growth expert who understands platform algorithms and trending hashtag strategies. You create hashtag sets that maximize reach and engagement.";
-
+  "You are a social media growth expert who understands platform algorithms and trending hashtag strategies. You create hashtag sets that maximize reach and engagement. You MUST respond with a valid JSON object. The JSON object must contain exactly these keys: 'youtube', 'instagram', 'tiktok', 'linkedin', and 'twitter', where each key contains an array of string hashtags.";
+  
 function buildHashtagsPrompt(transcript: TranscriptWithExtras): string {
   return `Create platform-optimized hashtag strategies for this podcast.
 

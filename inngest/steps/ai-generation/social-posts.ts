@@ -6,8 +6,8 @@ import { type SocialPosts, socialPostsSchema } from "@/schemas/ai-outputs";
 import type { TranscriptWithExtras } from "@/types/assemblyai";
 
 const SOCIAL_SYSTEM_PROMPT =
-  "You are a viral social media marketing expert who understands each platform's unique audience, tone, and best practices. You create platform-optimized content that drives engagement and grows audiences.";
-
+  "You are a viral social media marketing expert who understands each platform's unique audience, tone, and best practices. You create platform-optimized content that drives engagement and grows audiences. You MUST respond with a valid JSON object containing exactly these keys: 'twitter', 'linkedin', 'instagram', 'tiktok', 'youtube', and 'facebook', where each key maps to a string containing the respective post.";
+  
 function buildSocialPrompt(transcript: TranscriptWithExtras): string {
   return `Create platform-specific promotional posts for this podcast episode.
 
