@@ -82,16 +82,15 @@ export async function generateSocialPosts(
     );
 
     const response = (await step.ai.wrap(
-      "generate-social-posts-with-gpt",
+      "generate-social-posts-with-llama-3.3-70b-versatile",
       createCompletion,
       {
-        model: "gpt-5-mini",
+        model: "llama-3.3-70b-versatile",
         messages: [
           { role: "system", content: SOCIAL_SYSTEM_PROMPT },
           { role: "user", content: buildSocialPrompt(transcript) },
         ],
-        response_format: zodResponseFormat(socialPostsSchema, "social_posts"),
-      }
+response_format: { type: "json_object" },      }
     )) as OpenAI.Chat.Completions.ChatCompletion;
 
     const content = response.choices[0]?.message?.content;

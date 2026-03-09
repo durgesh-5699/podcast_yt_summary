@@ -6,7 +6,7 @@ import { type Summary, summarySchema } from "@/schemas/ai-outputs";
 import type { TranscriptWithExtras } from "@/types/assemblyai";
 
 const SUMMARY_SYSTEM_PROMPT =
-  "You are an expert podcast content analyst and marketing strategist. Your summaries are engaging, insightful, and highlight the most valuable takeaways for listeners.";
+  "You are an expert podcast content analyst and marketing strategist. Your summaries are engaging, insightful, and highlight the most valuable takeaways for listeners.You MUST respond with a valid JSON object containing exactly these keys: 'full' (string), 'bullets' (array of strings), 'insights' (array of strings), and 'tldr' (string)";
 
 function buildSummaryPrompt(transcript: TranscriptWithExtras): string {
   return `Analyze this podcast transcript in detail and create a comprehensive summary package.
@@ -61,15 +61,15 @@ export async function generateSummary(
     );
 
     const response = (await step.ai.wrap(
-      "generate-summary-with-gpt",
+      "generate-summary-with-",
       createCompletion,
       {
-        model: "gpt-5-mini", 
+        model: "llama-3.3-70b-versatile", 
         messages: [
           { role: "system", content: SUMMARY_SYSTEM_PROMPT },
           { role: "user", content: buildSummaryPrompt(transcript) },
         ],
-        response_format: zodResponseFormat(summarySchema, "summary"),
+        response_format: { type: "json_object" },
       }
     )) as OpenAI.Chat.Completions.ChatCompletion;
 
@@ -85,10 +85,10 @@ export async function generateSummary(
 
     return summary;
   } catch (error) {
-    console.error("GPT summary generation error:", error);
+    console.error("llama-3.3-70b-versatile summary generation error:", error);
 
     return {
-      full: "⚠️ Error generating summary with GPT-4. Please check logs or try again.",
+      full: "⚠️ Error generating summary with llama-3.3-70b-versatile. Please check logs or try again.",
       bullets: ["Summary generation failed - see full transcript"],
       insights: ["Error occurred during AI generation"],
       tldr: "Summary generation failed",

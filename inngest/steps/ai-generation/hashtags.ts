@@ -65,16 +65,15 @@ export async function generateHashtags(
     );
 
     const response = (await step.ai.wrap(
-      "generate-hashtags-with-gpt",
+      "generate-hashtags-with-llama-3.3-70b-versatile",
       createCompletion,
       {
-        model: "gpt-5-mini",
+        model: "llama-3.3-70b-versatile",
         messages: [
           { role: "system", content: HASHTAGS_SYSTEM_PROMPT },
           { role: "user", content: buildHashtagsPrompt(transcript) },
         ],
-        response_format: zodResponseFormat(hashtagsSchema, "hashtags"),
-      }
+      response_format: { type: "json_object" },      }
     )) as OpenAI.Chat.Completions.ChatCompletion;
 
     const content = response.choices[0]?.message?.content;

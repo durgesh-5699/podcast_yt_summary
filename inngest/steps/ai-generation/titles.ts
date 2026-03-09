@@ -65,16 +65,15 @@ export async function generateTitles(
     );
 
     const response = (await step.ai.wrap(
-      "generate-titles-with-gpt",
+      "generate-titles-with-llama-3.3-70b-versatile",
       createCompletion,
       {
-        model: "gpt-5-mini",
+        model: "llama-3.3-70b-versatile",
         messages: [
           { role: "system", content: TITLES_SYSTEM_PROMPT },
           { role: "user", content: buildTitlesPrompt(transcript) },
         ],
-        response_format: zodResponseFormat(titlesSchema, "titles"),
-      },
+response_format: { type: "json_object" },      },
     )) as OpenAI.Chat.Completions.ChatCompletion;
 
     const titlesContent = response.choices[0]?.message?.content;

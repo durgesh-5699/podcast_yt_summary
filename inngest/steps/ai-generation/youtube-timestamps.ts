@@ -88,47 +88,16 @@ Remember: Create TITLES, not transcript excerpts!`;
   );
 
   const response = (await step.ai.wrap(
-    "generate-youtube-titles-with-gpt",
+    "generate-youtube-titles-with-llama-3.3-70b-versatile",
     createCompletion,
     {
-      model: "gpt-5-mini",
-      response_format: {
-        type: "json_schema",
-        json_schema: {
-          name: "youtube_chapter_titles",
-          strict: true,
-          schema: {
-            type: "object",
-            properties: {
-              titles: {
-                type: "array",
-                items: {
-                  type: "object",
-                  properties: {
-                    index: {
-                      type: "number",
-                      description: "Chapter index",
-                    },
-                    title: {
-                      type: "string",
-                      description: "Short, catchy chapter title (3-6 words)",
-                    },
-                  },
-                  required: ["index", "title"],
-                  additionalProperties: false,
-                },
-              },
-            },
-            required: ["titles"],
-            additionalProperties: false,
-          },
-        },
-      },
+      model: "llama-3.3-70b-versatile",
+      response_format: { type: "json_object" }, 
       messages: [
         {
           role: "system",
           content:
-            "You are a YouTube content expert who creates SHORT, DESCRIPTIVE TITLES for video chapters. CRITICAL: You create TITLES (like 'Introduction to AI'), NOT transcript text or full sentences. Always respond with valid JSON.",
+            "You are a YouTube content expert who creates SHORT, DESCRIPTIVE TITLES for video chapters. CRITICAL: You create TITLES (like 'Introduction to AI'), NOT transcript text or full sentences. You MUST respond with a valid JSON object containing a 'titles' array.",
         },
         {
           role: "user",
