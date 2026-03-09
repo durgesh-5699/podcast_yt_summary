@@ -40,6 +40,12 @@ export default defineSchema({
             v.literal("failed")
           )
         ),
+        keyMoments: v.optional(v.string()), 
+        summary: v.optional(v.string()),
+        social: v.optional(v.string()),
+        titles: v.optional(v.string()),
+        hashtags: v.optional(v.string()),
+        youtubeTimestamps: v.optional(v.string()),
       })
     ),
 
